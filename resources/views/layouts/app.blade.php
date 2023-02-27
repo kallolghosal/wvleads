@@ -18,7 +18,7 @@
             $("#exprt").on('click', function () {
                 var strt = $("#strt").val();
                 var endt = $("#endt").val();
-                if (strt == '' || endt == '') {
+                if (strt == '' || endt == '' || strt >= endt) {
                     alert("No range selected");
                 } else {
                     window.location.href = '/export-csv/'+strt+'/'+endt;
