@@ -35,8 +35,7 @@
                     @endauth
                 </div>
             @endif
-
-            
+            <h1>WV Leads Management System</h1>
         </div>
     </body>
 </html>

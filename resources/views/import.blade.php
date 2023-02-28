@@ -13,7 +13,7 @@
                     @error('file')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-                    <input class="btn btn-outline-secondary" value="Upload" type="submit" id="inputGroupFileAddon04">
+                    <input class="btn btn-success" value="Upload" type="submit" id="inputGroupFileAddon04">
                 </div>
             </form>
             @if (session('status'))
