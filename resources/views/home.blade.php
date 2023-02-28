@@ -10,7 +10,7 @@
             <div class="col">
                 <div class="input-group ms-auto">
                     <input type="text" class="form-control" placeholder="From" id="strt" aria-label="From">
-                    <span class="input-group-text"><-></span>
+                    <span class="input-group-text"><--></span>
                     <input type="text" class="form-control" placeholder="To" id="endt" aria-label="To">
                     <button type="button" class="btn btn-success" id="exprt">Export as CSV</button>
                 </div>
