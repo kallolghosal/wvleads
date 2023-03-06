@@ -25,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $leads = LeadsModel::select('*')->distinct('phone')->paginate(12);
+        
         $count = LeadsModel::count();
         $unique = LeadsModel::select('phone')->groupBy('phone')->get();
         return view('home', ['leads' => $leads, 'count' => $count, 'unique' => $unique]);
