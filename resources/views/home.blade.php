@@ -14,6 +14,9 @@
                     <input type="text" class="form-control" placeholder="To" id="endt" aria-label="To">
                     <button type="button" class="btn btn-success" id="exprt">Export as CSV</button>
                 </div>
+                @if (session('error'))
+                    <p class="text-danger">{{ session('error') }}</p>
+                @endif
             </div>
         </div>
         <table class="table table-success table-striped mt-4">

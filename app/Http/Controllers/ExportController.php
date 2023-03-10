@@ -18,7 +18,22 @@ class ExportController extends Controller
     }
 
     public function exportToCsv ($st, $nd) {
-        $data = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->distinct('phone')->get();
+        $uniqueval = [];
+        $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('phone', 'id')->toArray();
+        $rangeid = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('id')->toArray();
+        $leads = LeadsModel::whereNotIn('id', $rangeid)->pluck('phone')->toArray();
+        foreach ($range as $k=>$v) {
+            if (!in_array($v, $leads)) {
+                array_push($uniqueval, $k);
+            }
+        }
+
+        $data = LeadsModel::whereIn('id', $uniqueval)->get();
+
+        if (count($data)== 0){
+            return \redirect('home')->with('error', 'No unique row found in range');
+        }
+        
         $fileName = 'leads.csv';
         $headers = array(
             "Content-type"        => "text/csv",
