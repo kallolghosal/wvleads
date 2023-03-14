@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6">
             <h2>Import CSV</h2>
-            <form action="{{route('store-file')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('show.csv')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <label for="csvfile">Select CSV file to upload</label>
                 <div class="input-group">

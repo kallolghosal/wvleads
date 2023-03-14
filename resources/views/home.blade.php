@@ -10,11 +10,11 @@
             <div class="col">
                 <div class="input-group ms-auto">
                     <input type="text" class="form-control" placeholder="From" id="strt" aria-label="From">
-                    <span class="input-group-text"><--></span>
+                    <span class="input-group-text"><-></span>
                     <input type="text" class="form-control" placeholder="To" id="endt" aria-label="To">
                     <button type="button" class="btn btn-success" id="exprt">Export as CSV</button>
                 </div>
-                @if (session('error'))
+                @if(session('error'))
                     <p class="text-danger">{{ session('error') }}</p>
                 @endif
             </div>
@@ -32,15 +32,15 @@
                 </tr>
             </thead>
             @foreach ($leads as $lead)
-                <tr>
-                    <td>{{$lead->platform}}</td>
-                    <td>{{$lead->business_name}}</td>
-                    <td>{{$lead->full_name}}</td>
-                    <td>{{$lead->email}}</td>
-                    <td>{{$lead->phone}}</td>
-                    <td>{{$lead->state}}</td>
-                    <td>{{$lead->city}}</td>
-                </tr>
+            <tr>
+                <td>{{$lead->platform}}</td>
+                <td>{{$lead->business_name}}</td>
+                <td>{{$lead->full_name}}</td>
+                <td>{{$lead->email}}</td>
+                <td>{{$lead->phone}}</td>
+                <td>{{$lead->state}}</td>
+                <td>{{$lead->city}}</td>
+            </tr>
             @endforeach
         </table>
         {!! $leads->withQueryString()->links('pagination::bootstrap-5') !!}

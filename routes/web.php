@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,10 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('leads', [LeadsController::class, 'index']);
 Route::get('export-leads', [ExportController::class, 'exportLeads'])->name('exportLeads');
 Route::get('export-csv/{st}/{nd}', [ExportController::class, 'exportToCsv'])->name('download-csv');
 Route::get('import-csv', [ImportController::class, 'importCsv'])->name('import.csv');
-Route::post('store', [ImportController::class, 'saveFile'])->name('store-file');
+Route::get('savedata/{name}', [ImportController::class, 'saveFile'])->name('store-file');
+Route::post('show-csv', [ImportController::class, 'showCsvData'])->name('show.csv');
