@@ -31,7 +31,7 @@ class ExportController extends Controller
         $data = LeadsModel::whereIn('id', $uniqueval)->get();
 
         if (count($data) == 0){
-            return \redirect('home')->with('error', 'No unique row found in range');
+            return redirect()->back()->with('error', 'No unique row found in range');
         }
 
         $fileName = 'leads.csv';
