@@ -6,9 +6,13 @@
         <div class="col-md-10">
             <h2>CSV file contains following Data</h2>
             
-            <table class="table table-striped">
+            <table class="table">
             @foreach ($csv as $v)
-            <tr>
+            @if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $v['phone']))
+                <tr class="text-danger">
+            @else
+                <tr>
+            @endif
                 <td>{{ $v['platform'] }}</td>
                 <td>{{ $v['business_name'] }}</td>
                 <td>{{ $v['full_name'] }}</td>
@@ -20,7 +24,8 @@
             </tr>
             @endforeach
             </table>
-            <a href="{{ route('store-file', ['name' => $name]) }}" class="btn btn-primary">Save Data</a>
+            <a href="{{ route('store-file', ['name' => $name]) }}" class="btn btn-primary">Save Data</a> &nbsp; 
+            <a href="{{ route('import.csv') }}" class="btn btn-primary">Cancel</a>
             @if (session('status'))
                 <h4>{{ session('status') }}</h4>
             @endif
