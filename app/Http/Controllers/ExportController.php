@@ -27,8 +27,7 @@ class ExportController extends Controller
                 array_push($uniqueval, $k);
             }
         }
-
-        $data = LeadsModel::whereIn('id', $uniqueval)->get();
+        $data = LeadsModel::whereIn('id', $uniqueval)->get()->unique('phone');
 
         if (count($data) == 0){
             return redirect()->back()->with('error', 'No unique row found in range');
