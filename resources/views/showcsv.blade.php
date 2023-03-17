@@ -9,9 +9,9 @@
             <table class="table">
             @foreach ($csv as $v)
             @if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $v['phone']))
-                <tr class="text-danger">
+            <tr class="text-danger">
             @else
-                <tr>
+            <tr>
             @endif
                 <td>{{ $v['platform'] }}</td>
                 <td>{{ $v['business_name'] }}</td>

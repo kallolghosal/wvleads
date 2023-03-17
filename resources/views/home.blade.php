@@ -29,6 +29,7 @@
                     <td>Mobile</td>
                     <td>State</td>
                     <td>City</td>
+                    <td>Date</td>
                 </tr>
             </thead>
             @foreach ($leads as $lead)
@@ -40,6 +41,7 @@
                 <td>{{$lead->phone}}</td>
                 <td>{{$lead->state}}</td>
                 <td>{{$lead->city}}</td>
+                <td>{{$lead->created_at}}</td>
             </tr>
             @endforeach
         </table>
