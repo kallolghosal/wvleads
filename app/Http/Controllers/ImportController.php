@@ -36,8 +36,8 @@ class ImportController extends Controller
                 $csv[$i]['full_name'] = $line[2];
                 $csv[$i]['business_sector'] = $line[3];
                 $csv[$i]['state'] = $line[4];
-                $csv[$i]['city'] = $line[5];
-                $csv[$i]['phone'] = $line[6];
+                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[5]);
+                $csv[$i]['phone'] = substr($line[6], -10);
                 $csv[$i]['email'] = $line[7];
                 $i++;
             }
@@ -78,8 +78,8 @@ class ImportController extends Controller
                 $csv[$i]['full_name'] = $line[2];
                 $csv[$i]['business_sector'] = $line[3];
                 $csv[$i]['state'] = $line[4];
-                $csv[$i]['city'] = $line[5];
-                $csv[$i]['phone'] = $line[6];
+                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[5]);
+                $csv[$i]['phone'] = substr($line[6], -10);
                 $csv[$i]['email'] = $line[7];
                 $i++;
             }
@@ -93,4 +93,5 @@ class ImportController extends Controller
 
         return view('showcsv', ['csv' => $csv, 'name' => $name]);
     }
+
 }

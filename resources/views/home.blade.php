@@ -22,6 +22,7 @@
         <table class="table table-success table-striped mt-4">
             <thead>
                 <tr>
+                    <td>ID</td>
                     <td>Pl</td>
                     <td>Business Name</td>
                     <td>Full Name</td>
@@ -34,6 +35,7 @@
             </thead>
             @foreach ($leads as $lead)
             <tr>
+                <td>{{$lead->id}}</td>
                 <td>{{$lead->platform}}</td>
                 <td>{{$lead->business_name}}</td>
                 <td>{{$lead->full_name}}</td>
