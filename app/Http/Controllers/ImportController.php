@@ -29,6 +29,7 @@ class ImportController extends Controller
             throw new Exception('There was an error loading the CSV file.');
         } else { 
             $line = fgetcsv($file, 1000, ",");
+            dd($line);
             $i = 0;
             while (($line = fgetcsv($file, 1000)) !== false) {
                 $csv[$i]['platform'] = $line[0];

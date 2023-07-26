@@ -20,8 +20,10 @@ class ExportController extends Controller
     public function exportToCsv ($st, $nd) {
         $uniqueval = [];
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('phone', 'id')->toArray();
+        //dd($range);
         $rangeid = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('id')->toArray();
         $leads = LeadsModel::whereNotIn('id', $rangeid)->pluck('phone')->toArray();
+        //dd($leads);
         foreach ($range as $k=>$v) {
             if (!in_array($v, $leads)) {
                 array_push($uniqueval, $k);
