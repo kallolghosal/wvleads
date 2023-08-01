@@ -29,22 +29,22 @@ class ImportController extends Controller
             throw new Exception('There was an error loading the CSV file.');
         } else { 
             $line = fgetcsv($file, 1000, ",");
-            dd($line);
+            //dd($line);
             $i = 0;
             while (($line = fgetcsv($file, 1000)) !== false) {
-                $csv[$i]['platform'] = $line[0];
-                $csv[$i]['business_name'] = $line[1];
-                $csv[$i]['full_name'] = $line[2];
-                $csv[$i]['business_sector'] = $line[3];
-                $csv[$i]['state'] = $line[4];
-                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[5]);
-                $csv[$i]['phone'] = substr($line[6], -10);
-                $csv[$i]['email'] = $line[7];
+                $csv[$i]['platform'] = $line[11];
+                $csv[$i]['business_name'] = $line[14];
+                $csv[$i]['full_name'] = $line[16];
+                $csv[$i]['business_sector'] = $line[15];
+                $csv[$i]['state'] = $line[12];
+                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[13]);
+                $csv[$i]['phone'] = substr($line[18], -10);
+                $csv[$i]['email'] = $line[17];
                 $i++;
             }
             fclose($file);
         }
-
+        //dd($csv);
         $leads = new LeadsModel;
         $leads::insert($csv);
 
@@ -57,7 +57,7 @@ class ImportController extends Controller
      */
     public function showCsvData (Request $request) {
         $validate = $request->validate([
-            'file' => 'required|mimes:csv|max:20000',
+            'file' => 'required|mimes:csv|max:200000',
         ],[
             'file.required' => 'Please select the right filetype'
         ]);
@@ -74,14 +74,14 @@ class ImportController extends Controller
             $line = fgetcsv($file, 1000, ",");
             $i = 0;
             while (($line = fgetcsv($file, 1000)) !== false) {
-                $csv[$i]['platform'] = $line[0];
-                $csv[$i]['business_name'] = $line[1];
-                $csv[$i]['full_name'] = $line[2];
-                $csv[$i]['business_sector'] = $line[3];
-                $csv[$i]['state'] = $line[4];
-                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[5]);
-                $csv[$i]['phone'] = substr($line[6], -10);
-                $csv[$i]['email'] = $line[7];
+                $csv[$i]['platform'] = $line[11];
+                $csv[$i]['business_name'] = $line[14];
+                $csv[$i]['full_name'] = $line[16];
+                $csv[$i]['business_sector'] = $line[15];
+                $csv[$i]['state'] = $line[12];
+                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[13]);
+                $csv[$i]['phone'] = substr($line[18], -10);
+                $csv[$i]['email'] = $line[17];
                 $i++;
             }
             fclose($file);

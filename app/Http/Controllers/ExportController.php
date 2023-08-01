@@ -29,7 +29,7 @@ class ExportController extends Controller
                 array_push($uniqueval, $k);
             }
         }
-        $data = LeadsModel::whereIn('id', $uniqueval)->get()->unique('phone');
+        $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->get()->unique('phone');
 
         if (count($data) == 0){
             return redirect()->back()->with('error', 'No unique row found in range');
@@ -64,5 +64,23 @@ class ExportController extends Controller
             fclose($file);
         };
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * Method to check for duplicate email
+     * in rest of the database and 
+     * return ids of unique email IDs
+     */
+    public function filterEmails($uniqueval) {
+        $vals = [];
+        $rangemail = LeadsModel::whereIn('id', $uniqueval)->pluck('email', 'id')->toArray();
+        $rangeid = LeadsModel::whereIn('id', $uniqueval)->pluck('id')->toArray();
+        $leads = LeadsModel::whereNotIn('id', $rangeid)->pluck('email')->toArray();
+        foreach ($rangemail as $k=>$v) {
+            if (!in_array($v, $leads)) {
+                array_push($vals, $k);
+            }
+        }
+        return $vals;
     }
 }
