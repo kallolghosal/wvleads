@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LeadsModel extends Model
 {
     protected $table = 'fb_leads';
+    public $timestamps = false;
     protected $fillable = [
         'platform',
         'business_name',

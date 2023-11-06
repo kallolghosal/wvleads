@@ -23,9 +23,9 @@ class ImportController extends Controller
      * Show data from uploaded CSV file
      */
     public function saveFile ($name) {
-
+        $file = fopen(public_path('files').'/'.$name, 'r');
         $csv = [];
-        if (($file = fopen(public_path('files').'/'.$name, 'r')) === false) {
+        if ($file === false) {
             throw new Exception('There was an error loading the CSV file.');
         } else { 
             $line = fgetcsv($file, 1000, ",");
@@ -45,8 +45,8 @@ class ImportController extends Controller
             fclose($file);
         }
         //dd($csv);
-        $leads = new LeadsModel;
-        $leads::insert($csv);
+        //$leads = new LeadsModel;
+        LeadsModel::insert($csv);
 
         return \redirect('import-csv')->with('status', 'Data saved successfully');
     }

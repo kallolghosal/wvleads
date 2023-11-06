@@ -29,6 +29,7 @@ class ExportController extends Controller
                 array_push($uniqueval, $k);
             }
         }
+        //dd($uniqueval);
         $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->get()->unique('phone');
 
         if (count($data) == 0){
