@@ -32,20 +32,24 @@ class ImportController extends Controller
             //dd($line);
             $i = 0;
             while (($line = fgetcsv($file, 1000)) !== false) {
-                $csv[$i]['platform'] = $line[11];
-                $csv[$i]['business_name'] = $line[14];
-                $csv[$i]['full_name'] = $line[16];
-                $csv[$i]['business_sector'] = $line[15];
-                $csv[$i]['state'] = $line[12];
-                $csv[$i]['city'] = str_replace('Bangalore','Bengaluru',$line[13]);
-                $csv[$i]['phone'] = substr($line[18], -10);
-                $csv[$i]['email'] = $line[17];
-                $i++;
+                $csv [] = [
+                'platform' => $line[11],
+                'business_name' => $line[14],
+                'full_name' => $line[16],
+                'business_sector' => $line[15],
+                'state' => $line[12],
+                'city' => str_replace('Bangalore','Bengaluru',$line[13]),
+                'phone' => substr($line[18], -10),
+                'email' => $line[17],
+                'remark' => 'None'
+                ];
+                //$i++;
             }
             fclose($file);
         }
         //dd($csv);
-        //$leads = new LeadsModel;
+        // $leads = new LeadsModel;
+        // $leads::insert([$csv]);
         LeadsModel::insert($csv);
 
         return \redirect('import-csv')->with('status', 'Data saved successfully');
@@ -57,7 +61,7 @@ class ImportController extends Controller
      */
     public function showCsvData (Request $request) {
         $validate = $request->validate([
-            'file' => 'required|mimes:csv|max:200000',
+            'file' => 'required|mimes:csv,xls|max:200000'
         ],[
             'file.required' => 'Please select the right filetype'
         ]);
