@@ -19,6 +19,7 @@ class ExportController extends Controller
 
     public function exportToCsv ($st, $nd) {
         $uniqueval = [];
+        $duplicates = [];
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('phone', 'id')->toArray();
         //dd($range);
         $rangeid = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('id')->toArray();
@@ -29,8 +30,26 @@ class ExportController extends Controller
                 array_push($uniqueval, $k);
             }
         }
+
+        foreach ($rangeid as $x=>$y) {
+            if (!in_array($y, $uniqueval)) {
+                array_push($duplicates, $y);
+            }
+        }
         //dd($uniqueval);
+        //dd(array_diff($rangeid, $uniqueval));
+        //dd($duplicates);
+
+        /**
+         * Dataset for all unique leads in the given range
+         */
         $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->get()->unique('phone');
+
+        /**
+         * Dataset of duplicate rows in the given range
+         */
+        $dups = LeadsModel::whereIn('id', $duplicates)->get();
+        //dd($data);
 
         if (count($data) == 0){
             return redirect()->back()->with('error', 'No unique row found in range');
@@ -45,13 +64,14 @@ class ExportController extends Controller
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
             "Expires"             => "0"
         );
-        $columns = array('Platform', 'Business Name', 'Full Name', 'Business Sector', 'State', 'City', 'Phone', 'Email');
+        $columns = array('Platform', 'Business Name', 'Full Name', 'Business Sector', 'State', 'City', 'Phone', 'Email', 'Create Dt');
 
-        $callback = function() use($data, $columns) {
+        $callback = function() use($data, $dups, $columns) {
             $file = fopen('php://output', 'w');
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-            fputcsv($file, $columns);
 
+            fwrite($file, "Enique values"."\n");
+            fputcsv($file, $columns);
             foreach ($data as $task) {
                 fputcsv($file, [
                     $task->platform,
@@ -60,8 +80,28 @@ class ExportController extends Controller
                     $task->business_sector,
                     $task->state,
                     $task->city,
-                    $task->phone,
-                    $task->email
+                    substr($task->phone, -10),
+                    $task->email,
+                    $task->created_at
+                ]);
+            }
+
+            /**
+             * Write duplicate entries to the file
+             */
+            fwrite($file, "\n"."Duplicates"."\n");
+            fputcsv($file, $columns);
+            foreach ($dups as $task) {
+                fputcsv($file, [
+                    $task->platform,
+                    $task->business_name,
+                    $task->full_name,
+                    $task->business_sector,
+                    $task->state,
+                    $task->city,
+                    substr($task->phone, -10),
+                    $task->email,
+                    $task->created_at
                 ]);
             }
             fclose($file);
