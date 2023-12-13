@@ -7,6 +7,19 @@
             <h2>Import CSV</h2>
             <form action="{{route('show.csv')}}" method="post" enctype="multipart/form-data">
                 @csrf
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="owner" value="wv" id="wv" checked>
+                    <label class="form-check-label" for="wv">
+                        WV
+                    </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="owner" value="cac" id="cac">
+                    <label class="form-check-label" for="cac">
+                        CAC
+                    </label>
+                </div>
+                <br /><br />
                 <label for="csvfile">Select CSV file to upload</label>
                 <div class="input-group">
                     <input type="file" class="form-control" id="file" aria-describedby="inputGroupFileAddon04" name="file" aria-label="Upload">

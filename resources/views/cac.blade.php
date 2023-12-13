@@ -5,14 +5,15 @@
     <div class="row justify-content-center">
         <div class="row">
             <div class="col">
-                Total Leads: {{ $count }}; Unique Leads (Phone): {{ count($unique) }}
+                Total Leads: {{ $count}}
             </div>
             <div class="col">
                 <div class="input-group ms-auto">
                     <input type="text" class="form-control" placeholder="From" id="strt" aria-label="From">
                     <span class="input-group-text"><-></span>
                     <input type="text" class="form-control" placeholder="To" id="endt" aria-label="To">
-                    <input type="hidden" name="token" value="wv" id="token">
+                    <input type="hidden" name="token" id="token" value="cac">
+                    <input type="hidden" name="owner" id="owner" value="cac">
                     <button type="button" class="btn btn-success" id="exprt">Export as CSV</button>
                 </div>
                 @if(session('error'))
@@ -25,7 +26,8 @@
                 <tr>
                     <td>ID</td>
                     <td>Pl</td>
-                    <td>Business Name</td>
+                    <td>Form</td>
+                    <td>Company Name</td>
                     <td>Full Name</td>
                     <td>Email</td>
                     <td>Mobile</td>
@@ -34,12 +36,13 @@
                     <td>Date</td>
                 </tr>
             </thead>
-            @foreach ($leads as $lead)
+            @foreach ($cacleads as $lead)
             <tr>
                 <td>{{$lead->id}}</td>
                 <td>{{$lead->platform}}</td>
-                <td>{{$lead->business_name}}</td>
-                <td>{{$lead->full_name}}</td>
+                <td>{{$lead->form_name}}</td>
+                <td>{{$lead->company_name}}</td>
+                <td>{{$lead->first_name.' '.$lead->last_name}}</td>
                 <td>{{$lead->email}}</td>
                 <td>{{$lead->phone}}</td>
                 <td>{{$lead->state}}</td>
@@ -48,8 +51,7 @@
             </tr>
             @endforeach
         </table>
-        {!! $leads->withQueryString()->links('pagination::bootstrap-5') !!}
-        
+        {!! $cacleads->withQueryString()->links('pagination::bootstrap-5') !!}
     </div>
 </div>
 @endsection

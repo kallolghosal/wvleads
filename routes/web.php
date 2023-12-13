@@ -5,6 +5,7 @@ use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CacImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,13 @@ Auth::routes([
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('leads', [LeadsController::class, 'index']);
 Route::get('export-leads', [ExportController::class, 'exportLeads'])->name('exportLeads');
+
+// Route to export WV data
 Route::get('export-csv/{st}/{nd}', [ExportController::class, 'exportToCsv'])->name('download-csv');
+
+// Route to export CAC data
+Route::get('export-cacdata/{st}/{nd}', [ExportController::class, 'exportCsvData'])->name('download-cacdata');
 Route::get('import-csv', [ImportController::class, 'importCsv'])->name('import.csv');
-Route::get('savedata/{name}', [ImportController::class, 'saveFile'])->name('store-file');
+Route::get('savedata/{name}/{owner}', [ImportController::class, 'saveFile'])->name('store-file');
 Route::post('show-csv', [ImportController::class, 'showCsvData'])->name('show.csv');
+Route::get('cac', [CacImportController::class, 'index'])->name('cac');

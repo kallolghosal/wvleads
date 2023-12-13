@@ -18,10 +18,17 @@
             $("#exprt").on('click', function () {
                 var strt = $("#strt").val();
                 var endt = $("#endt").val();
-                if (strt == '' || endt == '' || strt >= endt) {
+                var token = $("#token").val();
+                var owner = $("input[name=owner]:checked").val();
+                if (strt === '' || endt === '' || strt >= endt) {
                     alert("No range selected");
                 } else {
-                    window.location.href = '/export-csv/'+strt+'/'+endt;
+                    if (token == 'cac' || owner == 'cac') {
+                        window.location.href = '/export-cacdata/'+strt+'/'+endt;
+                    } else {
+                        window.location.href = '/export-csv/'+strt+'/'+endt;
+                    }
+                    
                 }
             });
         });
@@ -47,6 +54,7 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ route('import.csv') }}">Import</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('exportLeads') }}">Export</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('cac') }}">CAC</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
