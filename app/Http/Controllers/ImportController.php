@@ -42,7 +42,8 @@ class ImportController extends Controller
                     'city' => str_replace('Bangalore','Bengaluru',$line[13]),
                     'phone' => substr($line[18], -10),
                     'email' => $line[17],
-                    'remark' => 'None'
+                    'remark' => 'None',
+                    'created_at' => date('Y-m-d')
                     ];
                 }
                 fclose($file);
@@ -60,7 +61,8 @@ class ImportController extends Controller
                     'company_name' => $line[16],
                     'phone' => substr($line[17], -10),
                     'email' => $line[18],
-                    'remark' => 'None'
+                    'remark' => 'None',
+                    'created_at' => date('Y-m-d')
                     ];
                 }
                 fclose($file);

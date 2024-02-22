@@ -41,3 +41,6 @@ Route::get('import-csv', [ImportController::class, 'importCsv'])->name('import.c
 Route::get('savedata/{name}/{owner}', [ImportController::class, 'saveFile'])->name('store-file');
 Route::post('show-csv', [ImportController::class, 'showCsvData'])->name('show.csv');
 Route::get('cac', [CacImportController::class, 'index'])->name('cac');
+Route::get('remove', [LeadsController::class, 'removeLeads'])->name('removeleads');
+Route::get('removecac/{st}/{nd}', [LeadsController::class, 'removecac'])->name('remove-cac');
+Route::get('removewv/{st}/{nd}', [LeadsController::class, 'removewv'])->name('remove-wv');

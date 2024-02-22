@@ -28,7 +28,21 @@
                     } else {
                         window.location.href = '/export-csv/'+strt+'/'+endt;
                     }
-                    
+                }
+            });
+            $("#rmlead").on('click', function () {
+                var strt = $("#strt").val();
+                var endt = $("#endt").val();
+                var token = $("#token").val();
+                var owner = $("input[name=owner]:checked").val();
+                if (strt === '' || endt === '' || strt >= endt) {
+                    alert("No range selected");
+                } else {
+                    if (token == 'cac' || owner == 'cac') {
+                        window.location.href = '/removecac/'+strt+'/'+endt;
+                    } else {
+                        window.location.href = '/removewv/'+strt+'/'+endt;
+                    }
                 }
             });
         });
@@ -55,6 +69,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('import.csv') }}">Import</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('exportLeads') }}">Export</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('cac') }}">CAC</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('removeleads') }}">Remove</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

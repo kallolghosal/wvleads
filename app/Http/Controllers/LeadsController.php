@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LeadsModel;
+use App\Models\CacModel;
+use Illuminate\Support\Facades\Validator;
 
 class LeadsController extends Controller
 {
@@ -88,5 +90,29 @@ class LeadsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function removeLeads () {
+        return view('remove');
+    }
+
+    public function removecac ($st, $nd) {
+        $range = CacModel::where('id', '>=', $st)->where('id', '<=', $nd)->get();
+        if (count($range) == 0) {
+            return \redirect('remove')->with('status', 'Range does not exist');
+        } else {
+            CacModel::where('id', '>=', $st)->where('id', '<=', $nd)->delete();
+            return \redirect('remove')->with('status', 'Data deleted successfully');
+        }
+    }
+
+    public function removewv ($st, $nd) {
+        $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->get();
+        if (count($range) == 0) {
+            return \redirect('remove')->with('status', 'Range does not exist');
+        } else {
+            LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->delete();
+            return \redirect('remove')->with('status', 'Data deleted successfully');
+        }
     }
 }
