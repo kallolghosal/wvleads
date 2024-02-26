@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LeadsModel;
 use App\Models\CacModel;
+use App\Models\WvCityModel;
 use Illuminate\Support\Facades\Response;
 
 class ExportController extends Controller
@@ -21,6 +22,8 @@ class ExportController extends Controller
     public function exportToCsv ($st, $nd) {
         $uniqueval = [];
         $duplicates = [];
+        $cities = WvCityModel::pluck('city');
+        //dd($cities);
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('phone', 'id')->toArray();
         //dd($range);
         $rangeid = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('id')->toArray();
@@ -44,7 +47,7 @@ class ExportController extends Controller
         /**
          * Dataset for all unique leads in the given range
          */
-        $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->get()->unique('phone');
+        $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->whereIn('city', $cities)->get()->unique('phone');
 
         /**
          * Dataset of duplicate rows in the given range

@@ -96,6 +96,14 @@ class LeadsController extends Controller
         return view('remove');
     }
 
+    /**
+     * Method to remove leads
+     * from CAC leads table
+     * 
+     * @param int $st $nd
+     * 
+     * @return confirmation msg
+     */
     public function removecac ($st, $nd) {
         $range = CacModel::where('id', '>=', $st)->where('id', '<=', $nd)->get();
         if (count($range) == 0) {
@@ -106,6 +114,14 @@ class LeadsController extends Controller
         }
     }
 
+    /**
+     * Method to remove leads
+     * from WV leads table
+     * 
+     * @param int $st $nd
+     * 
+     * @return confirmation msg
+     */
     public function removewv ($st, $nd) {
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->get();
         if (count($range) == 0) {
