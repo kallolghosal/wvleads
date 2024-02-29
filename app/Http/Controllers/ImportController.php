@@ -35,9 +35,9 @@ class ImportController extends Controller
                 while (($line = fgetcsv($file, 1000)) !== false) {
                     $csv [] = [
                     'platform' => $line[11],
-                    'business_name' => $line[14],
-                    'full_name' => $line[16],
-                    'business_sector' => $line[15],
+                    'business_name' => (strlen($line[14]) > 50) ? 'self' : $line[14],
+                    'full_name' => (strlen($line[16]) > 50) ? 'self' : $line[16],
+                    'business_sector' => (strlen($line[15]) > 50) ? 'self' : $line[15],
                     'state' => $line[12],
                     'city' => str_replace('Bangalore','Bengaluru',$line[13]),
                     'phone' => substr($line[18], -10),

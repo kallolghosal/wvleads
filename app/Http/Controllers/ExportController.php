@@ -19,9 +19,16 @@ class ExportController extends Controller
         return view('export');
     }
 
+    /**
+     * Method to export Walmart leads
+     * to csv file for download
+     * @param $st $nd int range
+     */
     public function exportToCsv ($st, $nd) {
         $uniqueval = [];
         $duplicates = [];
+
+        // Get the list of cities to be included
         $cities = WvCityModel::pluck('city');
         //dd($cities);
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->pluck('phone', 'id')->toArray();
