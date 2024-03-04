@@ -124,6 +124,7 @@ class LeadsController extends Controller
      */
     public function removewv ($st, $nd) {
         $range = LeadsModel::where('id', '>=', $st)->where('id', '<=', $nd)->get();
+        dd($range);
         if (count($range) == 0) {
             return \redirect('remove')->with('status', 'Range does not exist');
         } else {

@@ -56,10 +56,14 @@ class ExportController extends Controller
          */
         $data = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->whereIn('city', $cities)->get()->unique('phone');
 
+        $dataid = LeadsModel::whereIn('id', $this->filterEmails($uniqueval))->whereIn('city', $cities)->pluck('id')->unique('phone');
+        $dupids = array_diff($rangeid, $dataid);
+
         /**
          * Dataset of duplicate rows in the given range
          */
-        $dups = LeadsModel::whereIn('id', $duplicates)->get();
+        //$dups = LeadsModel::whereIn('id', $duplicates)->get();
+        $dups = LeadsModel::whereIn('id', $dupids)->get();
         //dd($data);
 
         if (count($data) == 0){
